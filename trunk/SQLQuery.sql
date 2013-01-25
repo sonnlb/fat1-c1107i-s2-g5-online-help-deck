@@ -39,7 +39,7 @@ go
 create table employees(
 employeeID int identity(1,1) primary key,
 userType int references userTypes(userTypeID)not null,
-departmentID int references departments(departmentID)noy null
+departmentID int references departments(departmentID)not null
 )
 go
 
@@ -71,4 +71,3 @@ insert into requests values(2,'2013/01/20')
 insert into requests values(2,'2013/01/20')
 go
 insert into requestDetails values(1,'yeu cau sua chua',default,1,'sua ho em cai may chieu class 2')
-select * from requestDetails
