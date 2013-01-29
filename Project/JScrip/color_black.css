@@ -1,0 +1,100 @@
+/* @override http://wordpress.webhelpdesk.com/wp-content/themes/iblogpro/pro/css/color_black.css?ver=3.0.1 */
+
+#nav {
+	background: transparent url(../images/nav-bg-black.png) no-repeat 0px -1px;
+}
+
+#nav ul li{
+	background: url(../images/navdivider-black.png) no-repeat right top;
+}
+
+#nav ul.dropdown li a.home, #nav ul.dropdown li a.home:hover{
+		background: url(../../images/home-icon-trans.png) no-repeat 21px 5px;
+
+	}
+	
+#nav ul li a{
+	text-shadow: #000 0px -1px 0px;
+	color: #fff;
+}
+#nav .current_page_item a, #nav .current_page_item a:hover, #nav li a:hover, #nav li a:active, 	#nav .current_page_ancestor a, #nav .current_page_ancestor a:hover{
+	text-shadow: #000 0 1px 0px;
+}
+
+#nav .current_page_item a, #nav .current_page_item a:hover, #nav .current_page_ancestor a, #nav .current_page_ancestor a:hover{
+	background: #2a2a2a url(../images/nav-sprite-black.png) repeat-x 0 -72px;
+}
+ #nav li a:hover{
+	background: #b1b1b1 url(../images/nav-sprite-black.png) repeat-x 0 0px;
+}
+ #nav li a:active{
+	background: #2a2a2a url(../images/nav-sprite-black.png) repeat-x 0 -36px;
+}
+
+#wrapper #nav ul.dropdown li.menuhover a{background: #000;}
+
+#wrapper #nav ul.dropdown ul li a:hover,
+#wrapper #nav ul.dropdown li.menuhover ul li a:hover,
+#wrapper #nav ul.dropdown ul li.current_page_item a,
+#wrapper #nav ul.dropdown li.menuhover ul li.current_page_item a,
+#wrapper #nav ul.dropdown ul li.current_page_ancestor a,
+#wrapper #nav ul.dropdown li.menuhover ul li.current_page_ancestor a,
+#wrapper #nav ul.dropdown li.menuhover ul li.current_page_item ul li a:hover,
+#wrapper #nav ul.dropdown li.menuhover ul li.current_page_ancestor ul li a:hover,
+#wrapper #nav ul.dropdown li.menuhover ul li ul li.current_page_item a{
+
+	background: #333;
+
+}
+
+#wrapper #nav ul.dropdown ul{
+    background: #000 url(../../images/bg_dropdown.png) repeat-x left bottom;
+}
+
+.page-nav, .wp-pagenavi{
+	background: #959595 url(../images/nav-sprite-black.png) repeat-x 0 0px;
+	color:#fff;
+}
+
+.page-nav a, .page-nav a:hover{
+	text-shadow: #000 0 1px 0;
+	color: #fff;
+}
+#content .wp-pagenavi span.pages {
+	color: #fff;
+	text-shadow: #000 0 1px 0;
+	
+}
+
+#content .wp-pagenavi a,  #content .wp-pagenavi .current, #content .wp-pagenavi .extend{
+	background: #aaa url(../images/nav-sprite-black.png) repeat-x 0 -36px;
+	color:#fff;
+}
+
+#content .wp-pagenavi a:hover, #content .wp-pagenavi .current{
+	background: #aaa url(../images/nav-sprite-black.png) repeat-x 0 -144px;
+}
+#accordion .drawer-handle, #drag_drop_sidebar h3{
+	background: #e5e5e5 url(../images/nav-sprite-black.png) repeat-x 0 0px;
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #555;
+	color:#fff;
+		text-shadow:#000 0 -1px 0;
+}
+#accordion .drawer-handle a{
+	color:#fff;
+}
+
+#accordion .ui-state-active {border-bottom: 1px solid #aaa;}
+
+#accordion .drawer-handle:hover,#sidebar .ui-sortable h3:hover{
+	background: #AAAAAA url(../images/nav-sprite-black.png) repeat-x 0 -108px;
+
+	border-top: 1px solid #444;	
+}
+
+#accordion .drawer-handle:hover a{
+		text-shadow: #000 0px 1px 0;
+	color:#fff;
+}
+
