@@ -130,7 +130,7 @@
                         <table style="width: 880px">
                             <tr>
                                 <td class="style5">
-                                    <span class=><a href="#" style="text-decoration: none">Login</a>&nbsp;&nbsp; -&nbsp; </span>
+                                    <span class=><a href="Login.aspx" style="text-decoration: none">Login</a>&nbsp;&nbsp; -&nbsp; </span>
                                 </td>
                                 <td class="cangiua">
                                     <span ><a href="#" style="text-decoration: none">Register</a></span></td>
