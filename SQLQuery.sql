@@ -120,3 +120,30 @@ set employeeID=@employeeID
 where requestDetailID=@requestDetailID
 go
 
+create proc viewStatus
+(
+@employeeName varchar(20)
+)
+as
+SELECT     requestDetails.requestDetailID, requestDetails.requestType, 
+                      requestDetails.remark
+FROM         requestDetails INNER JOIN
+                      employees ON requestDetails.employeeID = employees.employeeID
+WHERE     (employees.employeeName = @employeeName)
+go
+create proc viewRStatus(
+@requestDetailID int
+)
+as
+select requeststatus from requestDetails
+where requestDetailID=@requestDetailID
+go
+create proc setStatus(
+@requestDetailID int,
+@requeststatus varchar(20)
+)
+as
+update requestDetails
+set requeststatus=@requeststatus
+where requestDetailID=@requestDetailID
+go
