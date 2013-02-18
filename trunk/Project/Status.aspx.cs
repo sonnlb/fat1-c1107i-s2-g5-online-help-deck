@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 
-public partial class Default2 : System.Web.UI.Page
+public partial class Status1 : System.Web.UI.Page
 {
     SqlConnection conn = null;
     String empID;
@@ -28,10 +28,12 @@ public partial class Default2 : System.Web.UI.Page
     }
     private void LoadData()
     {
+       
         try
         {
+
             DataSet ds = new DataSet();
-            SqlDataAdapter adapter = new SqlDataAdapter("exec viewStatus 'Nguyen Van A'", conn);
+            SqlDataAdapter adapter = new SqlDataAdapter("exec viewStatus '"+Request.QueryString["Name"]+"'", conn);
             adapter.Fill(ds, "requestType");
             GridView1.DataSource = ds.Tables[0];
             GridView1.DataBind();

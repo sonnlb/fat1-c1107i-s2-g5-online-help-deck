@@ -14,7 +14,8 @@ userTypeName varchar(20) not null
 create table users(
 userID int identity(1,1) primary key,
 userName varchar(20) not null,
-passWord varchar(20) not null
+passWord varchar(20) not null,
+userTypeID int references userTypes(userTypeID)not null
 )
 go
 
@@ -57,23 +58,24 @@ employeeID int references employees(employeeID),
 remark varchar(100),
 )
 go
+insert into userTypes values('admin')
 insert into userTypes values('employee')
 insert into userTypes values('end-user')
 go
 insert into departments values('bao ve')
 insert into departments values('lao cong')
 go
-
-insert into users values('employee','123456')
-insert into users values('employee2','123456')
-insert into users values('student','123456')
-insert into users values('student2','123456')
+insert into users values('employee','123456',2)
+insert into users values('employee2','123456',2)
+insert into users values('student','123456',3)
+insert into users values('student2','123456',3)
+insert into users values('admin','123456',1)
 go
-insert into employees values(1,1,1,'Nguyen Van A',25,'Ha Noi')
-insert into employees values(2,1,2,'Tran Duc C',25,'Thai Nguyen')
+insert into employees values(1,2,1,'Nguyen Van A',25,'Ha Noi')
+insert into employees values(2,2,2,'Tran Duc C',25,'Thai Nguyen')
 go
-insert into endUsers values(3,1,'Nguyen Thi B',18,'Nam Dinh')
-insert into endUsers values(4,1,'Nguyen Thi E',18,'Ha Nam')
+insert into endUsers values(3,3,'Nguyen Thi B',18,'Nam Dinh')
+insert into endUsers values(4,3,'Nguyen Thi E',18,'Ha Nam')
 go
 insert into requests values(1,'2013/01/20')
 insert into requests values(2,'2013/01/21')
@@ -146,4 +148,58 @@ as
 update requestDetails
 set requeststatus=@requeststatus
 where requestDetailID=@requestDetailID
+go
+create proc Userlogin(
+@userName varchar(50),
+@Password varchar(50)
+)
+as
+SELECT     userTypeID
+FROM         users
+WHERE     (userName = @userName) AND (passWord = @Password)
+go
+create proc getEmpName
+(
+@userName varchar(50)
+)
+as
+SELECT     employees.employeeName
+FROM         employees INNER JOIN
+                      users ON employees.userID = users.userID
+WHERE     users.userName =@userName
+
+go
+
+create proc getEndUserName
+(
+@userName varchar(50)
+)
+as
+SELECT     endUsers.endUserName
+FROM         endUsers INNER JOIN
+                      users ON endUsers.userID = users.userID
+WHERE     users.userName = @userName
+go
+create proc changePass
+(
+@userName varchar(50),
+@password varchar(50),
+@newPassWord varchar(50)
+)
+as
+Update     users
+set         passWord=@newPassWord
+WHERE     (userName = @userName) AND (passWord = @password)
+go
+create proc viewRequestOfEnd
+(
+@endUserName varchar(50)
+)
+as
+SELECT     requestDetails.requestDetailID, endUsers.endUserName, requestDetails.requestType, requestDetails.requestStatus, requestDetails.remark, requests.date
+                      
+FROM         requestDetails INNER JOIN
+                      requests ON requestDetails.requestID = requests.requestID INNER JOIN
+                      endUsers ON requests.endUserID = endUsers.endUserID
+where endUsers.endUserName=@endUserName
 go
