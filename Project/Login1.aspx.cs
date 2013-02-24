@@ -43,19 +43,19 @@ public partial class Login1 : System.Web.UI.Page
     {
         if (txtUserName.Text == "")
         {
-            lblLogin.Text = "please input User Name!!!";
+            lblLogin.Text = "* Username";
             lblLogin.Visible = true;
             login = false;
         }
         if (txtPass.Text == "")
         {
-            lblLogin.Text = "please input PassWord!!!";
+            lblLogin.Text = "* Password";
             lblLogin.Visible = true;
             login = false;
         }
         if (txtPass.Text == "" && txtUserName.Text == "")
         {
-            lblLogin.Text = "please input User Name and PassWord!!!";
+            lblLogin.Text = "* Username and Password";
             lblLogin.Visible = true;
             login = false;
         }
