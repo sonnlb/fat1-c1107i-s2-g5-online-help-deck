@@ -12,16 +12,14 @@ userTypeID int identity(1,1) primary key,
 userTypeName varchar(20) not null
 )
 create table users(
-userID int identity(1,1) primary key,
-userName varchar(20) not null,
+userName varchar(20) not null primary key,
 passWord varchar(20) not null,
 userTypeID int references userTypes(userTypeID)not null
 )
 go
-
 create table endUsers(
 endUserID int identity(1,1) primary key,
-userID int references users(userID)not null,
+userName varchar(20) references users(userName)not null,
 userTypeID int references userTypes(userTypeID)not null,
 endUserName varchar(20) not null,
 endUserAge int not null,
@@ -33,15 +31,9 @@ departmentID int identity(1,1) primary key,
 departmentName varchar(20) not null
 )
 go
-create table requests(
-requestID int identity(1,1) primary key,
-endUserID int references endUsers(endUserID)not null,
-date smalldatetime not null
-)
-go
 create table employees(
 employeeID int identity(1,1) primary key,
-userID int references users(userID)not null,
+userName varchar(20) references users(userName)not null,
 userTypeID int references userTypes(userTypeID)not null,
 departmentID int references departments(departmentID)not null,
 employeeName varchar(20) not null,
@@ -49,15 +41,25 @@ employeeAge int not null,
 employeeAddress varchar(50)
 )
 go
-create table requestDetails(
-requestDetailID int identity(1,1) primary key,
-requestID int references requests(requestID) not null,
+create table requests(
+requestID int identity(1,1) primary key,
+endUserID int references endUsers(endUserID)not null,
 requestType varchar(20)not null ,
 requestStatus varchar(20) default('open') not null,
 employeeID int references employees(employeeID),
 remark varchar(100),
+date smalldatetime not null
 )
 go
+create table UserMessage(
+messageID int identity(1,1) primary key,
+sender varchar(50) default('system'),
+title varchar(100) not null,
+status varchar(50) default('chua doc'),
+contents varchar(200) not null,
+userName varchar(20) references users(userName)not null,
+date smalldatetime
+)
 insert into userTypes values('admin')
 insert into userTypes values('employee')
 insert into userTypes values('end-user')
@@ -71,28 +73,25 @@ insert into users values('student','123456',3)
 insert into users values('student2','123456',3)
 insert into users values('admin','123456',1)
 go
-insert into employees values(1,2,1,'Nguyen Van A',25,'Ha Noi')
-insert into employees values(2,2,2,'Tran Duc C',25,'Thai Nguyen')
+insert into employees values('employee',2,1,'Nguyen Van A',25,'Ha Noi')
+insert into employees values('employee2',2,2,'Tran Duc C',25,'Thai Nguyen')
 go
-insert into endUsers values(3,3,'Nguyen Thi B',18,'Nam Dinh')
-insert into endUsers values(4,3,'Nguyen Thi E',18,'Ha Nam')
+insert into endUsers values('student',3,'Nguyen Thi B',18,'Nam Dinh')
+insert into endUsers values('student2',3,'Nguyen Thi E',18,'Ha Nam')
 go
-insert into requests values(1,'2013/01/20')
-insert into requests values(2,'2013/01/21')
+insert into requests values(1,'yeu cau sua chua',default,1,'sua ho em cai may chieu class 2','12/12/2012')
+insert into requests values(2,'abc',default,1,'xyz','12/12/2012')
+insert into requests values(1,'yeu cau sua chua',default,null,'sua ho em cai may chieu class 2','03/01/2013')
 go
-insert into requestDetails values(1,'yeu cau sua chua',default,1,'sua ho em cai may chieu class 2')
-insert into requestDetails values(2,'abc',default,1,'xyz')
-insert into requestDetails values(1,'yeu cau sua chua',default,null,'sua ho em cai may chieu class 2')
+insert into UserMessage values(default,'tao thanh cong yeu cau',default,'ban da tao thanh cong mot yeu cau sua chua vao ngay 03/01/2013','student','03/01/2013')
+insert into UserMessage values(default,'yeu cau moi tao',default,'Nguyen Thi B tao thanh cong mot yeu cau sua chua vao ngay 03/01/2013','admin','03/01/2013')
 go
 create proc viewRequest
 as
-SELECT     requestDetails.requestDetailID, endUsers.endUserName, requestDetails.requestType, requestDetails.requestStatus, requestDetails.remark, requests.date, 
-                      requestDetails.employeeID
-FROM         requestDetails INNER JOIN
-                      requests ON requestDetails.requestID = requests.requestID INNER JOIN
+SELECT     requests.requestID, requests.requestType, requests.requestStatus, requests.employeeID, requests.remark, requests.date, endUsers.endUserName
+FROM         requests INNER JOIN
                       endUsers ON requests.endUserID = endUsers.endUserID
 go
-
 create proc viewEmpName
 (
 @employeeID int
@@ -113,13 +112,13 @@ WHERE     employeeName = @employeeName
 go
 create proc setEmployee
 (
-@requestDetailID int,
+@requestID int,
 @employeeID int
 )
 as
-update requestDetails
+update requests
 set employeeID=@employeeID
-where requestDetailID=@requestDetailID
+where requestID=@requestID
 go
 
 create proc viewStatus
@@ -127,27 +126,27 @@ create proc viewStatus
 @employeeName varchar(20)
 )
 as
-SELECT     requestDetails.requestDetailID, requestDetails.requestType, 
-                      requestDetails.remark
-FROM         requestDetails INNER JOIN
-                      employees ON requestDetails.employeeID = employees.employeeID
+SELECT     requests.requestID, requests.requestType, 
+                      requests.remark
+FROM         requests INNER JOIN
+                      employees ON requests.employeeID = employees.employeeID
 WHERE     (employees.employeeName = @employeeName)
 go
 create proc viewRStatus(
-@requestDetailID int
+@requestID int
 )
 as
-select requeststatus from requestDetails
-where requestDetailID=@requestDetailID
+select requeststatus from requests
+where requestID=@requestID
 go
 create proc setStatus(
-@requestDetailID int,
+@requestID int,
 @requeststatus varchar(20)
 )
 as
-update requestDetails
+update requests
 set requeststatus=@requeststatus
-where requestDetailID=@requestDetailID
+where requestID=@requestID
 go
 create proc Userlogin(
 @userName varchar(50),
@@ -165,7 +164,7 @@ create proc getEmpName
 as
 SELECT     employees.employeeName
 FROM         employees INNER JOIN
-                      users ON employees.userID = users.userID
+                      users ON employees.userName = users.userName
 WHERE     users.userName =@userName
 
 go
@@ -177,7 +176,17 @@ create proc getEndUserName
 as
 SELECT     endUsers.endUserName
 FROM         endUsers INNER JOIN
-                      users ON endUsers.userID = users.userID
+                      users ON endUsers.userName = users.userName
+WHERE     users.userName = @userName
+go
+create proc getEndUserID
+(
+@userName varchar(50)
+)
+as
+select endUsers.endUserID
+FROM         endUsers INNER JOIN
+                      users ON endUsers.userName = users.userName
 WHERE     users.userName = @userName
 go
 create proc changePass
@@ -196,10 +205,54 @@ create proc viewRequestOfEnd
 @endUserName varchar(50)
 )
 as
-SELECT     requestDetails.requestDetailID, endUsers.endUserName, requestDetails.requestType, requestDetails.requestStatus, requestDetails.remark, requests.date
+SELECT     requests.requestID, endUsers.endUserName, requests.requestType, requests.requestStatus, requests.remark, requests.date
                       
-FROM         requestDetails INNER JOIN
-                      requests ON requestDetails.requestID = requests.requestID INNER JOIN
+FROM         requests INNER JOIN
                       endUsers ON requests.endUserID = endUsers.endUserID
 where endUsers.endUserName=@endUserName
 go
+create proc createNewRequest(
+@endUserID int,
+@requestType varchar(50),
+@remark varchar(50)
+)
+as
+insert into requests values(@endUserID,@requestType,default,null,@remark,getdate())
+go
+create proc viewMessageList(
+@userName varchar(20)
+)
+as
+select sender,title,date,messageID,status from UserMessage 
+where userName=@userName
+go
+create proc viewMessageDetails(
+@messageID int
+)
+as
+select sender,title,contents,date,status 
+from UserMessage
+where messageID=@messageID
+go
+create proc countNewMessage(
+@userName varchar(20)
+)
+as
+SELECT     count(messageID)
+FROM         UserMessage
+where userName=@userName and status='chua doc'
+go
+create proc changeMessageStatus(
+@userName varchar(20)
+)
+as
+Update     UserMessage
+set         status='da doc'
+WHERE     (userName = @userName)
+go
+create proc createMessage(
+@title varchar(50),
+@contents varchar(200),
+@userName varchar(20)
+)as
+insert into UserMessage values(default,@title,default,@contents,@userName,getdate())

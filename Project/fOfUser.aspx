@@ -25,7 +25,7 @@
             </td>
             <td>
                 <asp:Button ID="btnCreateRequest" runat="server" Text="Create New Request" 
-                    Width="245px" />
+                    Width="245px" onclick="btnCreateRequest_Click" />
             </td>
         </tr>
         
