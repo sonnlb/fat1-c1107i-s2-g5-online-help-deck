@@ -11,7 +11,7 @@
             <asp:ButtonField ButtonType="Button" Text="Change" CommandName="set" />
             <asp:TemplateField HeaderText="Status">
                 <ItemTemplate>
-                    <asp:Label ID="lblstatus" runat="server" Text='<%# Eval("requestDetailID") %>' Visible="false" />
+                    <asp:Label ID="lblstatus" runat="server" Text='<%# Eval("requestID") %>' Visible="false" />
                     <asp:DropDownList runat="server" ID="ddTest" AutoPostBack="true" OnSelectedIndexChanged="ddTest_SelectedIndexChanged">
                     </asp:DropDownList>
                 </ItemTemplate>

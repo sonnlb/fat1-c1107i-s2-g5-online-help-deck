@@ -67,7 +67,7 @@ public partial class Status1 : System.Web.UI.Page
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             DropDownList ddlCountries = (e.Row.FindControl("ddTest") as DropDownList);
-            ddlCountries.DataSource = GetData("select DISTINCT requeststatus from requestDetails");
+            ddlCountries.DataSource = GetData("select DISTINCT requeststatus from requests");
             ddlCountries.DataTextField = "requeststatus";
             ddlCountries.DataValueField = "requeststatus";
             ddlCountries.DataBind();
@@ -95,7 +95,8 @@ public partial class Status1 : System.Web.UI.Page
     {
         if (e.CommandName == "set")
         {
-            if (GridView1.Rows[0].Cells[2].Text != null)
+
+            if (GridView1.Rows[0].Cells[2].Text != "" && GridView1.Rows[0].Cells[2].Text != "Please select")
             {
                 int intIndex = int.Parse(e.CommandArgument.ToString());
                 String requestID = GridView1.Rows[intIndex].Cells[3].Text;

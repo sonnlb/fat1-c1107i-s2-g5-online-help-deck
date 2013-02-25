@@ -19,4 +19,8 @@ public partial class fOfUser : System.Web.UI.Page
     {
         Response.Redirect("RequestOfEnd.aspx?Name=" + Request.QueryString["Name"] + "&userName=" + Request.QueryString["userName"]);
     }
+    protected void btnCreateRequest_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("createNewRequest.aspx?Name=" + Request.QueryString["Name"] + "&userName=" + Request.QueryString["userName"]);
+    }
 }

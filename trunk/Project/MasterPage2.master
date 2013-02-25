@@ -140,7 +140,10 @@
                     <div style="width: 873px">
 
                         <img alt="" class="style1" src="Image/logoSchoolHelpDesk.gif" />
-                        <div style="float: right"> 
+                        <div style="float: right">
+                            <asp:Label ID="lblNewMessage" runat="server" Text="Label" ForeColor="#CC3300"></asp:Label>
+                            <asp:ImageButton ID="imgButton" runat="server" ImageUrl="Image/message.png" 
+                                onclick="imgButton_Click" /></br>
                             <asp:LinkButton ID="LinkButton1" runat="server" Font-Underline="False" 
                                 onclick="LinkButton1_Click">ChangePass</asp:LinkButton>
                             <asp:LinkButton ID="LinkButton2" runat="server" Font-Underline="False" 

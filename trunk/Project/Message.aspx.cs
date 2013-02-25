@@ -8,16 +8,13 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 
-public partial class MasterPage2 : System.Web.UI.MasterPage
+public partial class Message : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        lblName.Text = "Hi "+Request.QueryString["Name"];
-        lblNewMessage.Text = "0";
-        if (GetData("exec countNewMessage " + Request.QueryString["userName"]).Tables[0].Rows[0][0].ToString() != "")
-        {
-            lblNewMessage.Text = GetData("exec countNewMessage " + Request.QueryString["userName"]).Tables[0].Rows[0][0].ToString();
-        }
+        
+        GridView1.DataSource = GetData("exec viewMessageList '" + Request.QueryString["userName"] + "'").Tables[0];
+        GridView1.DataBind();
     }
     private DataSet GetData(string query)
     {
@@ -37,14 +34,13 @@ public partial class MasterPage2 : System.Web.UI.MasterPage
             }
         }
     }
-    protected void LinkButton1_Click(object sender, EventArgs e)
+    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        Response.Redirect("ChangePass.aspx?Name=" + Request.QueryString["Name"] + "&userName=" + Request.QueryString["userName"]);
-       
-    }
-
-    protected void imgButton_Click(object sender, ImageClickEventArgs e)
-    {
-        Response.Redirect("Message.aspx?Name=" + Request.QueryString["Name"] + "&userName=" + Request.QueryString["userName"]);
+        if (e.CommandName == "Details")
+        {
+            int intIndex = int.Parse(e.CommandArgument.ToString());
+            String MessageID = GridView1.Rows[intIndex].Cells[4].Text;
+            Response.Redirect("DetailMessage.aspx?MessageID=" + MessageID + "&userName=" + Request.QueryString["userName"]);
+        }
     }
 }
