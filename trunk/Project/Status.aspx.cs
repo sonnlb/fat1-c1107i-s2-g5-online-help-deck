@@ -100,13 +100,18 @@ public partial class Status1 : System.Web.UI.Page
             {
                 int intIndex = int.Parse(e.CommandArgument.ToString());
                 String requestID = GridView1.Rows[intIndex].Cells[3].Text;
-                String sql = "exec setStatus " + requestID + ",'" + GridView1.Rows[0].Cells[2].Text+"'";
-                SqlCommand cmd;
-                cmd = new SqlCommand(sql, conn);
-                cmd.ExecuteNonQuery();
-                LoadData();
+                String sql = "exec setStatus " + requestID + ",'" + GridView1.Rows[0].Cells[2].Text + "'";
+                execQuery(sql);
+                execQuery("exec createMessage 'yeu cau da duoc thay doi trang thai','trang thai yeu cau cua ban da duoc doi thanh " + GridView1.Rows[0].Cells[2].Text + "','" + Request.QueryString["userName"] + "'");
+                execQuery("exec createMessage " + "'yeu cau vua duoc thay doi','" + " yeu cau duoc giao cho " + Request.QueryString["userName"] + "da duoc thay doi trang thai sang " + GridView1.Rows[0].Cells[2].Text + "','admin'");
             }
 
         }
+    }
+    private void execQuery(String sql) {
+        SqlCommand cmd;
+        cmd = new SqlCommand(sql, conn);
+        cmd.ExecuteNonQuery();
+        LoadData();
     }
 }
