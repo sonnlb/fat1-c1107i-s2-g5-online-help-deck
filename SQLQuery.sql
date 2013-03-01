@@ -20,7 +20,6 @@ go
 create table endUsers(
 endUserID int identity(1,1) primary key,
 userName varchar(20) references users(userName)not null,
-userTypeID int references userTypes(userTypeID)not null,
 endUserName varchar(20) not null,
 endUserAge int not null,
 endUserAddress varchar(50)
@@ -34,7 +33,6 @@ go
 create table employees(
 employeeID int identity(1,1) primary key,
 userName varchar(20) references users(userName)not null,
-userTypeID int references userTypes(userTypeID)not null,
 departmentID int references departments(departmentID)not null,
 employeeName varchar(20) not null,
 employeeAge int not null,
@@ -73,13 +71,13 @@ insert into users values('student','123456',3)
 insert into users values('student2','123456',3)
 insert into users values('admin','123456',1)
 go
-insert into employees values('employee',2,1,'Nguyen Van A',25,'Ha Noi')
-insert into employees values('employee2',2,2,'Tran Duc C',25,'Thai Nguyen')
+insert into employees values('employee',1,'Nguyen Van A',25,'Ha Noi')
+insert into employees values('employee2',2,'Tran Duc C',25,'Thai Nguyen')
 go
-insert into endUsers values('student',3,'Nguyen Thi B',18,'Nam Dinh')
-insert into endUsers values('student2',3,'Nguyen Thi E',18,'Ha Nam')
+insert into endUsers values('student','Nguyen Thi B',18,'Nam Dinh')
+insert into endUsers values('student2','Nguyen Thi E',18,'Ha Nam')
 go
-insert into requests values(1,'yeu cau sua chua',default,1,'sua ho em cai may chieu class 2','12/12/2012')
+insert into requests values(1,'yeu cau sua chua','close',1,'sua ho em cai may chieu class 2','12/12/2012')
 insert into requests values(2,'abc',default,1,'xyz','12/12/2012')
 insert into requests values(1,'yeu cau sua chua',default,null,'sua ho em cai may chieu class 2','03/01/2013')
 go
@@ -256,3 +254,37 @@ create proc createMessage(
 @userName varchar(20)
 )as
 insert into UserMessage values(default,@title,default,@contents,@userName,getdate())
+go
+create proc checkUserName(
+@userName varchar(50)
+)
+as
+SELECT     userName
+FROM         users
+WHERE     (userName = @userName)
+go
+create proc regisNewUser(
+@userName varchar(50),
+@passWord varchar(50),
+@userTypeID int
+)
+as
+insert into users values(@userName,@passWord,@userTypeID)
+go
+create proc regisEmployee(
+@userName varchar(50),
+@department int,
+@name varchar(50),
+@age int,
+@address varchar(50)
+)as
+insert into employees values (@userName,@department,@name,@age,@address)
+go
+create proc regisEndUser(
+@userName varchar(50),
+@name varchar(50),
+@age int,
+@address varchar(50)
+)as
+insert into EndUsers values (@userName,@name,@age,@address)
+go
