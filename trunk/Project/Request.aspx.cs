@@ -85,6 +85,21 @@ public partial class _Default : System.Web.UI.Page
             }
 
         }
+        if (e.CommandName == "Close")
+        {
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["OHDConnectionString"].ConnectionString);
+            conn.Open();
+            int intIndex = int.Parse(e.CommandArgument.ToString());
+            String requestID = GridView1.Rows[intIndex].Cells[4].Text;
+            String sql = "exec setStatus " + requestID + ",'Close'";
+            SqlCommand cmd;
+            cmd = new SqlCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            LoadData();
+
+
+        }
     }
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {

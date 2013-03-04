@@ -8,6 +8,7 @@
     OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound"
         Width="881px">
         <Columns>
+            <asp:ButtonField ButtonType="Button" CommandName="Close" Text="Close" />
             <asp:ButtonField ButtonType="Button" CommandName="set" Text="Set" />
             <asp:TemplateField HeaderText="Employee">
                 <ItemTemplate>

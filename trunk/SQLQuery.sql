@@ -43,13 +43,13 @@ create table requests(
 requestID int identity(1,1) primary key,
 endUserID int references endUsers(endUserID)not null,
 requestType varchar(20)not null ,
-requestStatus varchar(20) default('open') not null,
+requestStatus varchar(20) default('unassigned') not null,
 employeeID int references employees(employeeID),
 remark varchar(100),
 date smalldatetime not null
 )
 go
-create table UserMessage(
+create table userMessage(
 messageID int identity(1,1) primary key,
 sender varchar(50) default('system'),
 title varchar(100) not null,
@@ -58,6 +58,15 @@ contents varchar(200) not null,
 userName varchar(20) references users(userName)not null,
 date smalldatetime
 )
+create table feedBacks(
+feedBackID int identity(1,1) primary key,
+senderName varchar(50) not null,
+senderEmail varchar(100),
+contents varchar(1000) not null,
+status varchar(20),
+date smalldatetime
+)
+
 insert into userTypes values('admin')
 insert into userTypes values('employee')
 insert into userTypes values('end-user')
@@ -77,12 +86,15 @@ go
 insert into endUsers values('student','Nguyen Thi B',18,'Nam Dinh')
 insert into endUsers values('student2','Nguyen Thi E',18,'Ha Nam')
 go
-insert into requests values(1,'yeu cau sua chua','close',1,'sua ho em cai may chieu class 2','12/12/2012')
-insert into requests values(2,'abc',default,1,'xyz','12/12/2012')
+insert into requests values(1,'yeu cau sua chua','assigned',1,'sua ho em cai may chieu class 2','12/12/2012')
+insert into requests values(2,'abc','closed',1,'xyz','12/12/2012')
 insert into requests values(1,'yeu cau sua chua',default,null,'sua ho em cai may chieu class 2','03/01/2013')
 go
 insert into UserMessage values(default,'tao thanh cong yeu cau',default,'ban da tao thanh cong mot yeu cau sua chua vao ngay 03/01/2013','student','03/01/2013')
 insert into UserMessage values(default,'yeu cau moi tao',default,'Nguyen Thi B tao thanh cong mot yeu cau sua chua vao ngay 03/01/2013','admin','03/01/2013')
+go
+insert into feedBacks values('Dang Thanh K','K_dep_zai@yahoo.com.vn','chat luong phuc vu rat tot!!!','chua doc','03/02/2013')
+insert into feedBacks values('nguyen Thanh P','P_sieu_nhan@gmail.com','to bao ve can chu y hon ','chua doc','12/01/2013')
 go
 create proc viewRequest
 as
@@ -223,11 +235,15 @@ create proc viewMessageList(
 as
 select sender,title,date,messageID,status from UserMessage 
 where userName=@userName
+ORDER BY status
 go
 create proc viewMessageDetails(
 @messageID int
 )
 as
+Update     UserMessage
+set         status='da doc' 
+WHERE     (messageID = @messageID)
 select sender,title,contents,date,status 
 from UserMessage
 where messageID=@messageID
@@ -244,9 +260,7 @@ create proc changeMessageStatus(
 @userName varchar(20)
 )
 as
-Update     UserMessage
-set         status='da doc'
-WHERE     (userName = @userName)
+
 go
 create proc createMessage(
 @title varchar(50),
@@ -287,4 +301,54 @@ create proc regisEndUser(
 @address varchar(50)
 )as
 insert into EndUsers values (@userName,@name,@age,@address)
+go
+create proc createFeedBack
+(
+@senderName varchar(50),
+@senderEmail varchar(50),
+@content varchar(50)
+)
+as
+insert into feedBacks values(@senderName,@senderEmail,@content,'chua doc',getdate())
+go
+create proc viewFeedBack
+as
+SELECT     senderName, senderEmail, date, status, feedBackID
+FROM         feedBacks
+ORDER BY status
+go
+create proc viewDetailFeedBack
+(
+@feedBackID int
+)
+as
+update feedBacks set status = 'da doc' where  feedBackID=@feedBackID
+select senderName,senderEmail,contents,date from feedBacks where feedBackID=@feedBackID
+go
+create proc deleteFeedback(
+@feedBackID int
+)
+as
+delete from feedBacks where feedBackID=@feedBackID
+go
+create proc viewStatistics(
+@dateFrom smalldatetime,
+@dateto smalldatetime
+)
+as
+select count(*) from requests where date between @dateFrom and @dateto And requeststatus ='unassigned'
+select count(*) from requests where date between @dateFrom and @dateto And requeststatus ='assigned'
+select count(*) from requests where date between @dateFrom and @dateto And requeststatus ='work in progress'
+select count(*) from requests where date between @dateFrom and @dateto And requeststatus ='closed'
+select count(*) from requests where date between @dateFrom and @dateto And requeststatus ='rejected'
+select count(*) from requests where date between @dateFrom and @dateto
+go
+create proc listOfEachStatus
+(
+@dateFrom smalldatetime,
+@dateto smalldatetime,
+@status varchar(20)
+)
+as
+select * from requests where date between @dateFrom and @dateto And requeststatus =@status
 go

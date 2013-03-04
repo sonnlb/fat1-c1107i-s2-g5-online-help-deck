@@ -12,13 +12,7 @@ public partial class DetailMessage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        SqlConnection conn = null;
-        conn = new SqlConnection(ConfigurationManager.ConnectionStrings["OHDConnectionString"].ConnectionString);
-        conn.Open();
-        String sql = "exec changeMessageStatus '" + Request.QueryString["userName"] + "'";
-        SqlCommand cmd;
-        cmd = new SqlCommand(sql, conn);
-        cmd.ExecuteNonQuery();
+
         lblFrom2.Text = GetData("exec viewMessageDetails " + Request.QueryString["MessageID"]).Tables[0].Rows[0][0].ToString();
         lblTitle2.Text = GetData("exec viewMessageDetails " + Request.QueryString["MessageID"]).Tables[0].Rows[0][1].ToString();
         lblContent2.Text = GetData("exec viewMessageDetails " + Request.QueryString["MessageID"]).Tables[0].Rows[0][2].ToString();
