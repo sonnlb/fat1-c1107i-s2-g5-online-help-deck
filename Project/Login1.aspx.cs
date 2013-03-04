@@ -88,7 +88,7 @@ public partial class Login1 : System.Web.UI.Page
             else {
                 if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "1")
                 {
-                    Response.Redirect("Request.aspx?Name=" + "admin" + "&userName=" + txtUserName.Text);
+                    Response.Redirect("fOfAdmin.aspx?Name=" + "admin" + "&userName=" + txtUserName.Text);
                 }
             if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "2")
                 {
