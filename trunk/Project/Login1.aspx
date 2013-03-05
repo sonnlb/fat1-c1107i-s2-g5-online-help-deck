@@ -137,6 +137,7 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtPass" runat="server" TextMode="Password" Height="22px"></asp:TextBox>
+                    <asp:Label ID="lblPass" runat="server" ForeColor="Red" Visible="False"></asp:Label>
                 </td>
             </tr>
             <tr>

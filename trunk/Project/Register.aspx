@@ -1,9 +1,67 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<style type="text/css">
+        .nut
+        {
+            background-image: url('Image/button.png');
+            border-radius: 3px;
+            color:White;
+            border: thin solid #660000;
+            background-repeat: no-repeat;
+            background-position: right top;
+            height:26px;
+            width:80px;
+        }
+        .nut:hover
+        {
+            background-image: url('Image/buttonchange.png');
+        }
+        .style15
+        {
+            text-align: right;
+            padding-right: 20px;
+        }
+       
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<table style="width:100%;">
+<div style="background-position: left top; border: thin solid #C0C0C0; height: 492px; border-radius:10px; background-image: url('Image/network_add.png'); background-repeat: no-repeat;">
+    <table style="width:100%;">
+    <tr>
+
+            <td >
+                
+            </td>
+            <td>
+              
+                <br />
+              
+            </td>
+            
+        </tr>
+        <tr>
+
+            <td colspan="2" 
+                style="text-align: center; font-size: 16px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #0000FF;">
+                
+                <asp:Label ID="Label2" runat="server" Text="Register"></asp:Label>
+                
+            </td>
+            
+        </tr>
+        <tr>
+
+            <td >
+                
+            </td>
+            <td>
+              
+                <br />
+              
+            </td>
+            
+        </tr>
         <tr>
             <td class="style15">
                 <asp:Label ID="lblUserName" runat="server" Text="UserName:"></asp:Label>
@@ -90,15 +148,15 @@
             </td>
         </tr>
         <tr>
-            <td class="style15">
+            <td colspan="2" style="text-align: center; margin: 5px; padding: 5px">
+                <br />
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
-                    onclick="btnSubmit_Click" />
-            </td>
-            <td class="style16">
+                    onclick="btnSubmit_Click" CssClass="nut" />
                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" 
-                    onclick="btnCancel_Click" />
+                    onclick="btnCancel_Click" CssClass="nut" />
             </td>
         </tr>
     </table>
+    </div>
 </asp:Content>
 

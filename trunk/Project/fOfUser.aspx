@@ -10,22 +10,39 @@
         {
             width: 283px;
         }
+         .nut
+        {
+            background-image: url('Image/Fof.png');
+            border-radius: 3px;
+            color:White;
+            border: thin solid #660000;
+            background-position: right top;
+            margin-left:13px;
+            margin-right:8px;
+            height:28px;
+            width:220px;
+            font-family:Aharoni;
+            }
+       
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <table style="width:100%;">
         <tr>
             <td class="style15">
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnChangePass" runat="server" Text="Change Password" 
-                    Width="257px" onclick="btnChangePass_Click" />
+                    onclick="btnChangePass_Click" CssClass="nut"  />
             </td>
             <td class="style16">
                 <asp:Button ID="btnViewRequest" runat="server" Text="View Request" 
-                    Width="261px" onclick="btnViewRequest_Click" />
+                     onclick="btnViewRequest_Click" CssClass="nut" 
+                     />
             </td>
             <td>
                 <asp:Button ID="btnCreateRequest" runat="server" Text="Create New Request" 
-                    Width="245px" onclick="btnCreateRequest_Click" />
+                     onclick="btnCreateRequest_Click" CssClass="nut" 
+                    />
             </td>
         </tr>
         

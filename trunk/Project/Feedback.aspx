@@ -2,14 +2,67 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
+        .nut
+        {
+            background-image: url('Image/button.png');
+            border-radius: 3px;
+            color:White;
+            border: thin solid #660000;
+            background-repeat: no-repeat;
+            background-position: right top;
+            height:26px;
+            width:80px;
+        }
+        .nut:hover
+        {
+            background-image: url('Image/buttonchange.png');
+        }
         .style15
         {
-            width: 322px;
+            width: 363px;
+            text-align: right;
+            padding-right: 20px;
+        }
+        .style16
+        {
+            text-align:right;
+            
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<div style="border: thin solid #C0C0C0; height: 392px; border-radius:10px">
     <table style="width:100%;">
+    <tr>
+
+            <td >
+                
+            </td>
+            <td>
+              
+            </td>
+            
+        </tr>
+        <tr>
+
+            <td colspan="2" 
+                style="text-align: center; font-size: 16px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #0000FF;">
+                
+                <asp:Label ID="Label2" runat="server" Text="Feedback"></asp:Label>
+                
+            </td>
+            
+        </tr>
+        <tr>
+
+            <td >
+                
+            </td>
+            <td>
+              
+            </td>
+            
+        </tr>
         <tr>
             <td class="style15">
                 <asp:Label ID="lblName" runat="server" Text="Your Name:"></asp:Label>
@@ -33,19 +86,19 @@
                 <asp:Label ID="lblContent" runat="server" Text="Content:"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtContent" runat="server" Height="160px" TextMode="MultiLine" 
+                <asp:TextBox ID="txtContent" runat="server" Height="123px" TextMode="MultiLine" 
                     Width="216px"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="style15">
-                <asp:Button ID="btnSend" runat="server" onclick="btnSend_Click" Text="Send" />
-            </td>
-            <td>
+            <td colspan="2" style="text-align: center; margin: 5px; padding: 5px">
+                <asp:Button ID="btnSend" runat="server" onclick="btnSend_Click" Text="Send" 
+                    CssClass="nut" />
                 <asp:Button ID="btnCancel" runat="server" onclick="btnCancel_Click" 
-                    Text="Cancel" />
+                    Text="Cancel" CssClass="nut" />
             </td>
         </tr>
     </table>
+    </div>
 </asp:Content>
 

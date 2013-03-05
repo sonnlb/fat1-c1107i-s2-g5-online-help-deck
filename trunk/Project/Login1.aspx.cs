@@ -41,40 +41,45 @@ public partial class Login1 : System.Web.UI.Page
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        showma.Text = "";
+        lblPass.Text = "";
+        lblLogin.Text = "";
         if (txtUserName.Text == "")
         {
-            lblLogin.Text = "* Username";
+            lblLogin.Text = "*";
             lblLogin.Visible = true;
             login = false;
         }
         if (txtPass.Text == "")
         {
-            lblLogin.Text = "* Password";
-            lblLogin.Visible = true;
+            lblPass.Text = "*";
+            lblPass.Visible = true;
             login = false;
         }
         if (txtPass.Text == "" && txtUserName.Text == "")
         {
-            lblLogin.Text = "* Username and Password";
+            lblLogin.Text = "*";
             lblLogin.Visible = true;
+            lblPass.Text = "*";
+            lblPass.Visible = true;
             login = false;
         }
         if (txtPass.Text.Length > 12 && txtPass.Text.Length < 8)
         {
-            lblLogin.Text = "ivalid password!!!";
-            lblLogin.Visible = true;
+            lblPass.Text = "* Ivalid Password";
+            lblPass.Visible = true;
             login = false;
         }
         if (txtUserName.Text.Length > 12 && txtUserName.Text.Length < 8)
         {
-            lblLogin.Text = "ivalid username!!!";
+            lblLogin.Text = "* Ivalid Username";
             lblLogin.Visible = true;
             login = false;
         }
         if (txtUserName.Text.Length > 12 && txtUserName.Text.Length < 8 && txtPass.Text.Length > 12 && txtPass.Text.Length < 8)
         {
-            lblLogin.Text = "ivalid username and password!!!";
-            lblLogin.Visible = true;
+            showma.Text = "# Ivalid username and password!!!";
+            showma.Visible = true;
             login = false;
         }
         if (login == true)
@@ -82,24 +87,25 @@ public partial class Login1 : System.Web.UI.Page
 
             if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows.Count.ToString() == "0")
             {
-                lblLogin.Visible = true;
-                lblLogin.Text = "Ivalid UserName or Password!!!";
+                showma.Visible = true;
+                showma.Text = "*  Ivalid username or password!!!";
             }
-            else {
+            else
+            {
                 if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "1")
                 {
                     Response.Redirect("fOfAdmin.aspx?Name=" + "admin" + "&userName=" + txtUserName.Text);
                 }
-            if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "2")
+                if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "2")
                 {
                     Response.Redirect("Status.aspx?Name=" + GetData("exec getEmpName " + txtUserName.Text).Tables[0].Rows[0][0].ToString() + "&userName=" + txtUserName.Text);
-                   
+
                 }
-            if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "3")
-            {
-                Response.Redirect("fOfUser.aspx?Name=" + GetData("exec getEndUserName " + txtUserName.Text).Tables[0].Rows[0][0].ToString() + "&userName=" + txtUserName.Text);
-               
-            }
+                if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "3")
+                {
+                    Response.Redirect("fOfUser.aspx?Name=" + GetData("exec getEndUserName " + txtUserName.Text).Tables[0].Rows[0][0].ToString() + "&userName=" + txtUserName.Text);
+
+                }
 
             }
         }
