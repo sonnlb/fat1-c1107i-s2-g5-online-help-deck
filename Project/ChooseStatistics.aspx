@@ -3,6 +3,23 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<style type="text/css">
+        .nut
+        {
+            background-image: url('Image/button.png');
+            border-radius: 3px;
+            color:White;
+            border: thin solid #660000;
+            background-repeat: no-repeat;
+            background-position: right top;
+            height:26px;
+            width:80px;
+        }
+        .nut:hover
+        {
+            background-image: url('Image/buttonchange.png');
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <script type="text/javascript">
@@ -15,9 +32,14 @@
         }
     }
     </script>
+    <div class="cangiua" style="border: thin solid #C0C0C0; height: 292px; border-radius:10px">
+        <br />
     <asp:Label ID="lblChoose" runat="server" Text="Choose:"></asp:Label>
+    
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
     </asp:ToolkitScriptManager>
+        <br />
+        <br />
     <br />
     <asp:Label ID="lblFrom" runat="server" Text="From:"></asp:Label>
     <asp:TextBox ID="txtFrom" runat="server" EnableTheming="True" Height="20px" 
@@ -31,8 +53,10 @@
     <asp:CalendarExtender ID="txtTo_CalendarExtender" runat="server" Enabled="True" 
         TargetControlID="txtTo" OnClientDateSelectionChanged="checkDate">
     </asp:CalendarExtender>
+        <br />
     <br />
-    <asp:Button ID="Button1" runat="server" Text="View" Width="100px" 
-        onclick="Button1_Click" />
+    <asp:Button ID="Button1" runat="server" Text="View" 
+        onclick="Button1_Click" CssClass="nut" />
+        </div>
 </asp:Content>
 
