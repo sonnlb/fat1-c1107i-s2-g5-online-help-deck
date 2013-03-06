@@ -12,15 +12,15 @@ userTypeID int identity(1,1) primary key,
 userTypeName varchar(20) not null
 )
 create table users(
-userName varchar(20) not null primary key,
-passWord varchar(20) not null,
+userName varchar(15) not null primary key,
+passWord varchar(15) not null,
 userTypeID int references userTypes(userTypeID)not null
 )
 go
 create table endUsers(
 endUserID int identity(1,1) primary key,
-userName varchar(20) references users(userName)not null,
-endUserName varchar(20) not null,
+userName varchar(15) references users(userName)not null,
+enduserName varchar(50) not null,
 endUserAge int not null,
 endUserAddress varchar(50)
 )
@@ -32,7 +32,7 @@ departmentName varchar(20) not null
 go
 create table employees(
 employeeID int identity(1,1) primary key,
-userName varchar(20) references users(userName)not null,
+userName varchar(15) references users(userName)not null,
 departmentID int references departments(departmentID)not null,
 employeeName varchar(20) not null,
 employeeAge int not null,
@@ -55,7 +55,7 @@ sender varchar(50) default('system'),
 title varchar(100) not null,
 status varchar(50) default('chua doc'),
 contents varchar(200) not null,
-userName varchar(20) references users(userName)not null,
+userName varchar(15) references users(userName)not null,
 date smalldatetime
 )
 create table feedBacks(
@@ -63,8 +63,8 @@ feedBackID int identity(1,1) primary key,
 senderName varchar(50) not null,
 senderEmail varchar(100),
 contents varchar(1000) not null,
-status varchar(20),
-date smalldatetime
+status varchar(20)not null,
+date smalldatetime not null
 )
 
 insert into userTypes values('admin')
@@ -159,8 +159,8 @@ set requeststatus=@requeststatus
 where requestID=@requestID
 go
 create proc Userlogin(
-@userName varchar(50),
-@Password varchar(50)
+@userName varchar(15),
+@passWord varchar(15)
 )
 as
 SELECT     userTypeID
@@ -169,7 +169,7 @@ WHERE     (userName = @userName) AND (passWord = @Password)
 go
 create proc getEmpName
 (
-@userName varchar(50)
+@userName varchar(15)
 )
 as
 SELECT     employees.employeeName
@@ -181,7 +181,7 @@ go
 
 create proc getEndUserName
 (
-@userName varchar(50)
+@userName varchar(15)
 )
 as
 SELECT     endUsers.endUserName
@@ -191,7 +191,7 @@ WHERE     users.userName = @userName
 go
 create proc getEndUserID
 (
-@userName varchar(50)
+@userName varchar(15)
 )
 as
 select endUsers.endUserID
@@ -201,8 +201,8 @@ WHERE     users.userName = @userName
 go
 create proc changePass
 (
-@userName varchar(50),
-@password varchar(50),
+@userName varchar(15),
+@passWord varchar(15),
 @newPassWord varchar(50)
 )
 as
@@ -230,7 +230,7 @@ as
 insert into requests values(@endUserID,@requestType,default,null,@remark,getdate())
 go
 create proc viewMessageList(
-@userName varchar(20)
+@userName varchar(15)
 )
 as
 select sender,title,date,messageID,status from UserMessage 
@@ -249,7 +249,7 @@ from UserMessage
 where messageID=@messageID
 go
 create proc countNewMessage(
-@userName varchar(20)
+@userName varchar(15)
 )
 as
 SELECT     count(messageID)
@@ -257,7 +257,7 @@ FROM         UserMessage
 where userName=@userName and status='chua doc'
 go
 create proc changeMessageStatus(
-@userName varchar(20)
+@userName varchar(15)
 )
 as
 
@@ -265,12 +265,12 @@ go
 create proc createMessage(
 @title varchar(50),
 @contents varchar(200),
-@userName varchar(20)
+@userName varchar(15)
 )as
 insert into UserMessage values(default,@title,default,@contents,@userName,getdate())
 go
 create proc checkUserName(
-@userName varchar(50)
+@userName varchar(15)
 )
 as
 SELECT     userName
@@ -278,15 +278,15 @@ FROM         users
 WHERE     (userName = @userName)
 go
 create proc regisNewUser(
-@userName varchar(50),
-@passWord varchar(50),
+@userName varchar(15),
+@passWord varchar(15),
 @userTypeID int
 )
 as
 insert into users values(@userName,@passWord,@userTypeID)
 go
 create proc regisEmployee(
-@userName varchar(50),
+@userName varchar(15),
 @department int,
 @name varchar(50),
 @age int,
@@ -295,7 +295,7 @@ create proc regisEmployee(
 insert into employees values (@userName,@department,@name,@age,@address)
 go
 create proc regisEndUser(
-@userName varchar(50),
+@userName varchar(15),
 @name varchar(50),
 @age int,
 @address varchar(50)
@@ -331,6 +331,7 @@ create proc deleteFeedback(
 as
 delete from feedBacks where feedBackID=@feedBackID
 go
+exec viewStatistics '2/6/2001','2/6/2013'
 create proc viewStatistics(
 @dateFrom smalldatetime,
 @dateto smalldatetime
