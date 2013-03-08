@@ -12,7 +12,14 @@ public partial class DetailMessage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            if (Request.UrlReferrer != null)
+            {
 
+                Session["url"] = Request.UrlReferrer.ToString();
+            }
+        }
         lblFrom2.Text = GetData("exec viewMessageDetails " + Request.QueryString["MessageID"]).Tables[0].Rows[0][0].ToString();
         lblTitle2.Text = GetData("exec viewMessageDetails " + Request.QueryString["MessageID"]).Tables[0].Rows[0][1].ToString();
         lblContent2.Text = GetData("exec viewMessageDetails " + Request.QueryString["MessageID"]).Tables[0].Rows[0][2].ToString();
@@ -36,5 +43,19 @@ public partial class DetailMessage : System.Web.UI.Page
                 }
             }
         }
+    }
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        ExecuteQuery("exec deleteMessage '" + Request.QueryString["MessageID"] + "'");
+        Response.Redirect(Session["url"].ToString()); 
+    }
+    private void ExecuteQuery(string sql)
+    {
+
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["OHDConnectionString"].ConnectionString);
+        conn.Open();
+        SqlCommand cmd;
+        cmd = new SqlCommand(sql, conn);
+        cmd.ExecuteNonQuery();
     }
 }

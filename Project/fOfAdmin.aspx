@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage2.master" AutoEventWireup="true" CodeFile="fOfAdmin.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage2.master" AutoEventWireup="true" CodeFile="fofAdmin.aspx.cs" Inherits="_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
@@ -32,7 +32,7 @@
             <td class="style16" >
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnViewRequest" runat="server" onclick="btnViewRequest_Click" 
-                    Text="View Request" CssClass="nut" />
+                    Text="Create New User" CssClass="nut" />
             </td>
             <td class="style15">
                 <asp:Button ID="btnViewFeedBack" runat="server" onclick="btnViewFeedBack_Click" 

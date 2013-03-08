@@ -70,6 +70,7 @@ date smalldatetime not null
 insert into userTypes values('admin')
 insert into userTypes values('employee')
 insert into userTypes values('end-user')
+insert into userTypes values('facilityHead')
 go
 insert into departments values('bao ve')
 insert into departments values('lao cong')
@@ -79,6 +80,7 @@ insert into users values('employee2','123456',2)
 insert into users values('student','123456',3)
 insert into users values('student2','123456',3)
 insert into users values('admin','123456',1)
+insert into users values('facilityHead','123456',4)
 go
 insert into employees values('employee',1,'Nguyen Van A',25,'Ha Noi')
 insert into employees values('employee2',2,'Tran Duc C',25,'Thai Nguyen')
@@ -127,19 +129,18 @@ create proc setEmployee
 )
 as
 update requests
-set employeeID=@employeeID
+set employeeID=@employeeID,requestStatus='assigned'
 where requestID=@requestID
 go
-
 create proc viewStatus
 (
 @employeeName varchar(20)
 )
 as
-SELECT     requests.requestID, requests.requestType, 
-                      requests.remark
+SELECT     requests.requestID, requests.requestType, requests.remark, endUsers.userName
 FROM         requests INNER JOIN
-                      employees ON requests.employeeID = employees.employeeID
+                      employees ON requests.employeeID = employees.employeeID INNER JOIN
+                      endUsers ON requests.endUserID = endUsers.endUserID
 WHERE     (employees.employeeName = @employeeName)
 go
 create proc viewRStatus(
@@ -331,7 +332,6 @@ create proc deleteFeedback(
 as
 delete from feedBacks where feedBackID=@feedBackID
 go
-exec viewStatistics '2/6/2001','2/6/2013'
 create proc viewStatistics(
 @dateFrom smalldatetime,
 @dateto smalldatetime
@@ -352,4 +352,10 @@ create proc listOfEachStatus
 )
 as
 select * from requests where date between @dateFrom and @dateto And requeststatus =@status
+go
+create proc deleteMessage(
+@messageID int
+)
+as
+delete from userMessage where messageID=@messageID
 go

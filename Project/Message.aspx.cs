@@ -15,6 +15,10 @@ public partial class Message : System.Web.UI.Page
         
         GridView1.DataSource = GetData("exec viewMessageList '" + Request.QueryString["userName"] + "'").Tables[0];
         GridView1.DataBind();
+        if (GridView1.DataSource == null) {
+            Label1.Text = "no message!!!";
+            Label1.Visible=true;
+        }
     }
     private DataSet GetData(string query)
     {

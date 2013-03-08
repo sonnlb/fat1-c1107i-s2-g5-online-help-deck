@@ -71,35 +71,41 @@ public partial class _Default : System.Web.UI.Page
     }
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+        
         if (e.CommandName == "set")
         {
-            if (GridView1.Rows[1].Cells[2].Text != null)
+            if (GridView1.Rows[1].Cells[3].Text != "")
             {
                 int intIndex = int.Parse(e.CommandArgument.ToString());
-                String requestID = GridView1.Rows[intIndex].Cells[3].Text;
-                String sql = "exec setEmployee " + requestID + "," + GridView1.Rows[1].Cells[2].Text;
-                SqlCommand cmd;
-                cmd = new SqlCommand(sql, conn);
-                cmd.ExecuteNonQuery();
-                LoadData();
+                String requestID = GridView1.Rows[intIndex].Cells[4].Text;
+                ExecuteQuery("exec setEmployee " + requestID + "," + GridView1.Rows[1].Cells[3].Text);
+
             }
+        
+
 
         }
         if (e.CommandName == "Close")
         {
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["OHDConnectionString"].ConnectionString);
-            conn.Open();
+            
             int intIndex = int.Parse(e.CommandArgument.ToString());
             String requestID = GridView1.Rows[intIndex].Cells[4].Text;
-            String sql = "exec setStatus " + requestID + ",'Close'";
-            SqlCommand cmd;
-            cmd = new SqlCommand(sql, conn);
-            cmd.ExecuteNonQuery();
-            LoadData();
+            ExecuteQuery("exec setStatus " + requestID + ",'Close'");
 
 
         }
+
+    }
+    private void ExecuteQuery(string sql)
+    {
+
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["OHDConnectionString"].ConnectionString);
+        conn.Open();
+        SqlCommand cmd;
+        cmd = new SqlCommand(sql, conn);
+        cmd.ExecuteNonQuery();
+        Page_Load(null, null);
     }
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
@@ -121,8 +127,20 @@ public partial class _Default : System.Web.UI.Page
     }
     protected void ddTest_SelectedIndexChanged(object sender, EventArgs e)
     {
-        DropDownList dd = (DropDownList)sender;
-        empID = GetData("exec viewEmpID" + "'" + dd.SelectedValue + "'").Tables[0].Rows[0][0].ToString();
-        GridView1.Rows[1].Cells[2].Text = empID;
-    }
+        try
+        {
+            DropDownList dd = (DropDownList)sender;
+            {
+                empID = GetData("exec viewEmpID" + "'" + dd.SelectedValue + "'").Tables[0].Rows[0][0].ToString();
+                GridView1.Rows[1].Cells[3].Text = empID;
+
+            }
+
+        }
+        catch {
+            GridView1.Rows[1].Cells[3].Text = "";
+        }
+        
+            
+        }
 }

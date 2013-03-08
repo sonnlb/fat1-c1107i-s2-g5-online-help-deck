@@ -67,10 +67,6 @@ public partial class Status1 : System.Web.UI.Page
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             DropDownList ddlCountries = (e.Row.FindControl("ddTest") as DropDownList);
-            ddlCountries.DataSource = GetData("select DISTINCT requeststatus from requests");
-            ddlCountries.DataTextField = "requeststatus";
-            ddlCountries.DataValueField = "requeststatus";
-            ddlCountries.DataBind();
             ddlCountries.Items.Insert(0, new ListItem("Please select"));
             if ((e.Row.FindControl("lblstatus") as Label).Text != "")
             {
@@ -82,6 +78,7 @@ public partial class Status1 : System.Web.UI.Page
     }
     protected void ddTest_SelectedIndexChanged(object sender, EventArgs e)
     {
+        GridView1.Rows[0].Cells[2].Text = "";
         DropDownList dd = (DropDownList)sender;
         empID = dd.SelectedValue;
         GridView1.Rows[0].Cells[2].Text = empID;
@@ -96,7 +93,7 @@ public partial class Status1 : System.Web.UI.Page
         if (e.CommandName == "set")
         {
 
-            if (GridView1.Rows[0].Cells[2].Text != "" && GridView1.Rows[0].Cells[2].Text != "Please select")
+            if (GridView1.Rows[0].Cells[2].Text != "" && GridView1.Rows[0].Cells[2].Text != "Please select" && GridView1.Rows[0].Cells[2].Text!="closed")
             {
                 int intIndex = int.Parse(e.CommandArgument.ToString());
                 String requestID = GridView1.Rows[intIndex].Cells[3].Text;
@@ -104,6 +101,8 @@ public partial class Status1 : System.Web.UI.Page
                 execQuery(sql);
                 execQuery("exec createMessage 'yeu cau da duoc thay doi trang thai','trang thai yeu cau cua ban da duoc doi thanh " + GridView1.Rows[0].Cells[2].Text + "','" + Request.QueryString["userName"] + "'");
                 execQuery("exec createMessage " + "'yeu cau vua duoc thay doi','" + " yeu cau duoc giao cho " + Request.QueryString["userName"] + "da duoc thay doi trang thai sang " + GridView1.Rows[0].Cells[2].Text + "','admin'");
+                execQuery("exec createMessage " + "'yeu cau vua duoc thay doi','" + " yeu cau duoc giao cho " + Request.QueryString["userName"] + "da duoc thay doi trang thai sang " + GridView1.Rows[0].Cells[2].Text + "','" + GridView1.Rows[intIndex].Cells[6].Text + "'");
+                LoadData();
             }
 
         }
@@ -112,6 +111,5 @@ public partial class Status1 : System.Web.UI.Page
         SqlCommand cmd;
         cmd = new SqlCommand(sql, conn);
         cmd.ExecuteNonQuery();
-        LoadData();
     }
 }

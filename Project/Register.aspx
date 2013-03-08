@@ -101,19 +101,6 @@
                     onselectedindexchanged="ddlType_SelectedIndexChanged" Width="113px" 
                     AutoPostBack="True">
                     <asp:ListItem>End-user</asp:ListItem>
-                    <asp:ListItem>Employee</asp:ListItem>
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="style15">
-                <asp:Label ID="lblDepart" runat="server" Text="Department:" Visible="False"></asp:Label>
-            </td>
-            <td class="style16">
-                <asp:DropDownList ID="ddldepart" runat="server" Visible="False" Height="18px" 
-                    Width="106px">
-                    <asp:ListItem>Bao ve</asp:ListItem>
-                    <asp:ListItem>Lao cong</asp:ListItem>
                 </asp:DropDownList>
             </td>
         </tr>

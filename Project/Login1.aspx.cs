@@ -92,9 +92,10 @@ public partial class Login1 : System.Web.UI.Page
             }
             else
             {
-                if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "1")
+                if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "4")
                 {
-                    Response.Redirect("fOfAdmin.aspx?Name=" + "admin" + "&userName=" + txtUserName.Text);
+                    Response.Redirect("Request.aspx?Name=" + "facilitHead" + "&userName=" + Request.QueryString["userName"]);
+                    
                 }
                 if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "2")
                 {
@@ -106,7 +107,11 @@ public partial class Login1 : System.Web.UI.Page
                     Response.Redirect("fOfUser.aspx?Name=" + GetData("exec getEndUserName " + txtUserName.Text).Tables[0].Rows[0][0].ToString() + "&userName=" + txtUserName.Text);
 
                 }
+                if (GetData("exec Userlogin " + txtUserName.Text + "," + txtPass.Text).Tables[0].Rows[0][0].ToString() == "1")
+                {
+                    Response.Redirect("fofAdmin.aspx?Name=" + "admin" + "&userName=" + txtUserName.Text);
 
+                }
             }
         }
 

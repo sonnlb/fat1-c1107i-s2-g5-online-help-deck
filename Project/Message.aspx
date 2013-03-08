@@ -33,4 +33,5 @@
             <asp:Label ID="lblMsgID" runat="server" Text="Label" Visible="False"></asp:Label>
         </EmptyDataTemplate>
     </asp:GridView>
+    <asp:Label ID="Label1" runat="server" Text="Label" Visible="False"></asp:Label>
 </asp:Content>
