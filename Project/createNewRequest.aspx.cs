@@ -12,12 +12,21 @@ public partial class createNewRequest : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-       
+        if (!IsPostBack)
+        {
+            if (Request.UrlReferrer != null)
+            {
+
+                Session["url"] = Request.UrlReferrer.ToString();
+            }
+        }
     }
 
 
     protected void btnCancel_Click(object sender, EventArgs e)
     {
+
+        Response.Redirect(Session["url"].ToString()); 
         txtRemark.Text = "";
     }
     protected void btnSend_Click(object sender, EventArgs e)

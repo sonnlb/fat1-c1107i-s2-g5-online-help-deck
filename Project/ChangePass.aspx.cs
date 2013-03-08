@@ -14,6 +14,14 @@ public partial class ChangePass : System.Web.UI.Page
     SqlConnection conn = null;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            if (Request.UrlReferrer != null)
+            {
+
+                Session["url"] = Request.UrlReferrer.ToString();
+            }
+        }
         lblChange.Visible = false;
     }
     
@@ -58,6 +66,7 @@ public partial class ChangePass : System.Web.UI.Page
         txtcfPass.Text = "";
         txtNewPass.Text = "";
         txtOldPass.Text = "";
+        Response.Redirect(Session["url"].ToString()); 
     }
     private DataSet GetData(string query)
     {

@@ -12,7 +12,14 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        if (!IsPostBack)
+        {
+            if (Request.UrlReferrer != null)
+            {
+
+                Session["url"] = Request.UrlReferrer.ToString();
+            }
+        }
         lblErorAddress.Visible = false;
         lblErorAge.Visible = false;
         lblErorConPassword.Visible = false;
@@ -28,6 +35,7 @@ public partial class _Default : System.Web.UI.Page
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
+        Response.Redirect(Session["url"].ToString()); 
         txtAddress.Text = "";
         txtAge.Text = "";
         txtConPassWord.Text = "";

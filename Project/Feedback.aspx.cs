@@ -12,10 +12,19 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            if (Request.UrlReferrer != null)
+            {
+
+                Session["url"] = Request.UrlReferrer.ToString();
+            }
+        }
         lblEror.Visible = false;
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
+        Response.Redirect(Session["url"].ToString()); 
         txtContent.Text = "";
         txtEmail.Text = "";
         txtName.Text = "";
