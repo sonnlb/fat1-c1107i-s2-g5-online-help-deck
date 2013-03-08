@@ -37,6 +37,10 @@
                 <ItemTemplate>
                     <asp:Label ID="lblstatus" runat="server" Text='<%# Eval("requestID") %>' Visible="false" />
                     <asp:DropDownList runat="server" ID="ddTest" AutoPostBack="true" OnSelectedIndexChanged="ddTest_SelectedIndexChanged">
+                        <asp:ListItem>assigned</asp:ListItem>
+                        <asp:ListItem>work in progress</asp:ListItem>
+                        <asp:ListItem>closed</asp:ListItem>
+                        <asp:ListItem>rejected</asp:ListItem>
                     </asp:DropDownList>
                 </ItemTemplate>
                 </asp:TemplateField>

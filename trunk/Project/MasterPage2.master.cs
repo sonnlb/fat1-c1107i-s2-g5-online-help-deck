@@ -45,6 +45,9 @@ public partial class MasterPage2 : System.Web.UI.MasterPage
 
     protected void imgButton_Click(object sender, ImageClickEventArgs e)
     {
+        
         Response.Redirect("Message.aspx?Name=" + Request.QueryString["Name"] + "&userName=" + Request.QueryString["userName"]);
+        
+        
     }
 }

@@ -1,0 +1,299 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        
+        .canphai
+        {
+            width: 813px;
+            text-align:right;
+        }
+        .canphai2
+        {
+           
+            text-align:right;
+        }
+        
+        .cangiua
+        {
+            text-align: center;
+        }
+        .style1
+        {
+            width: 414px;
+            height: 72px;
+        }
+       
+        
+        .style2
+        {
+            width: 100px;
+            color:White;
+            text-align:center;
+        }
+        .style2:hover
+        {
+            background-color:Black;
+        }
+        
+        
+        .style3
+        {
+            width: 61px;
+            text-align: center;
+            color: White;
+        }
+       
+        .style4
+        {
+            width: 880px;
+            height: 100px;
+        }
+        
+        
+        .style5
+        {
+            width: 834px;
+            text-align: right;
+        }
+        
+        #form1
+        {
+            width: 879px;
+        }
+        
+        
+        .style6
+        {
+            width: 209px;
+        }
+        .style7
+        {
+            width: 208px;
+        }
+        .style8
+        {
+            width: 212px;
+        }
+        .style9
+        {
+            width: 152px;
+        }
+        .style10
+        {
+            width: 140px;
+            height: 119px;
+        }
+        .tittlechan
+        {
+            color: #666;
+            margin-bottom: .5em;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        .memchan
+        {
+            text-decoration: none;
+            font-size: 12px;
+            color: #444;  
+        }
+        .style14
+        {
+            height: 26px;
+        }
+        
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server" style="width: 880px; margin-right: auto; margin-left: auto;">
+    <div>
+        <div>
+            <div id="dau">
+                <div>
+                    <table style="width: 880px">
+                        <tr>
+                            <td class="style5">
+                                <span class=""><a href="Login1.aspx" style="text-decoration: none">Login</a>&nbsp;&nbsp;
+                                    -&nbsp; </span>
+                            </td>
+                            <td class="cangiua">
+                                <span><a href="Register.aspx" style="text-decoration: none">Register</a></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <img alt="" class="style1" src="Image/logoSchoolHelpDesk.gif" /><br />
+                </div>
+                <div>
+                    <table id="bar" style="background-image: url('/Project/Image/bar.png'); color: #FFFFFF;
+                        width: 880px; height: 35px; border-radius: 4px;">
+                        <tr>
+                            <td class="style3">
+                                <a href="Home.aspx" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;</a>
+                            </td>
+                            <td class="style2">
+                                News
+                            </td>
+                            <td class="style2">
+                            <a href="Feedback.aspx" style="text-decoration: none; color: #FFFFFF;" >
+                                Report</a>
+                            </td>
+                            <td class="style2">
+                                Statistics
+                                
+                            </td>
+                            <td class="style2">
+                                Management
+                            </td>
+                            <td class="style2">
+                                Support
+                            </td>
+                            <td class="canphai2">
+                                <asp:TextBox ID="txtSearch" runat="server" BorderStyle="None"></asp:TextBox>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br />
+            </div>
+            <div id="giua">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div id="cuoi">
+                <div>
+                    &nbsp;
+                    <img alt="" class="style4" src="Image/1207_Stamp-Site-Merch_880x100.jpg" /></div>
+                <div>
+                    <table style="width: 100%;" bgcolor="#EFEFEF">
+                        <tr>
+                            <td class="style6">
+                                &nbsp;
+                            </td>
+                            <td class="style7">
+                                &nbsp;
+                            </td>
+                            <td class="style8">
+                                &nbsp;
+                            </td>
+                            <td class="style9">
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="style6" rowspan="5">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <img alt="" class="style10" src="Image/chan.png" />
+                            </td>
+                            <td class="style7">
+                                <span class="tittlechan">SOLUTIONS</span>
+                            </td>
+                            <td class="style8">
+                                <span class="tittlechan">HELP &amp; INFO</span>
+                            </td>
+                            <td class="style9">
+                                <span class="tittlechan">COMPANY</span>
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Service Request</a>
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Technical Support</a>
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">News</a>
+                            </td>
+                            <td class="style14">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Asset Management</a>
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Documentation</a>
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">About</a>
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Communication</a>
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Dowload &amp; Demo</a>
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Contact US</a>
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr class="memchan">
+                            <td class="memchan">
+                                <a href="#" class="memchan">Knowledge Base</a>
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Site Map</a>
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Quote Request</a>
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="style6">
+                                &nbsp;
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">ITIL Tools</a>
+                                <br />
+                                <br />
+                                <br />
+                            </td>
+                            <td class="style8">
+                                &nbsp;
+                            </td>
+                            <td class="memchan">
+                                <a href="#" class="memchan">Testimonials</a>
+                                <br />
+                                <br />
+                                <br />
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

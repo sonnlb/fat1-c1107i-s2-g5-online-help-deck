@@ -13,7 +13,7 @@ public partial class _Default : System.Web.UI.Page
     }
     protected void btnViewRequest_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Request.aspx?Name=" + Request.QueryString["Name"] + "&userName=" + Request.QueryString["userName"]);
+        Response.Redirect("Register1.aspx?Name=" + Request.QueryString["Name"] + "&userName=" + Request.QueryString["userName"]);
     }
     protected void btnViewFeedBack_Click(object sender, EventArgs e)
     {

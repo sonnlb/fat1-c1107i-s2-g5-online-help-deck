@@ -12,8 +12,7 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        ddldepart.Visible = false;
-        lblDepart.Visible = false;
+        
         lblErorAddress.Visible = false;
         lblErorAge.Visible = false;
         lblErorConPassword.Visible = false;
@@ -25,11 +24,7 @@ public partial class _Default : System.Web.UI.Page
     
     protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (ddlType.SelectedItem.Text == "Employee")
-        {
-            lblDepart.Visible = true;
-            ddldepart.Visible = true;
-        }
+        
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
@@ -111,34 +106,14 @@ public partial class _Default : System.Web.UI.Page
         if (checkRegis == true)
             {
             String userType = "";
-            String department = "";
-            if (ddlType.SelectedItem.Text == "Employee")
-            {
-                userType = "2";
-                if (ddldepart.SelectedItem.Text == "Bao ve")
-                {
-                    department = "1";
-                }
-                else
-                {
-                    department = "2";
-                }
-            }
             if (ddlType.SelectedItem.Text == "End-user")
             {
                 userType = "3";
             }
             String regisUserQuery = "exec regisNewUser '" + txtUserName.Text + "','" + txtPassword.Text + "'," + userType;
-            String regisEmployeeQuery = "exec regisEmployee '" + txtUserName.Text + "'," + department + ",'" + txtName.Text + "'," + txtAge.Text + ",'" + txtAddress.Text + "'";
             String regisEndUserQuery = "exec regisEndUser '" + txtUserName.Text + "','" + txtName.Text + "'," + txtAge.Text + ",'" + txtAddress.Text + "'";
-            if (userType == "2")
-            {
-                ExecuteQuery(regisEmployeeQuery);
-            }
-            if (userType == "3")
-            {
+            
                 ExecuteQuery(regisEndUserQuery);
-            }
 
         }
 

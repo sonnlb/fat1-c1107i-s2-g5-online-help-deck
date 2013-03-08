@@ -157,17 +157,6 @@
                             <tr>
                                 <td class="style3">
                                     <a href="Home.aspx" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</a></td>
-                                <td class="style2">
-                                    News</td>
-                                <td class="style2">
-                                    Report</td>
-                                <td class="style2">
-                                    Statistics</td>
-                                <td class="style2">
-                                    Management</td>
-                                <td class="style2">
-                                    Support</td>
-                                <td class="canphai2">
                                     <asp:TextBox ID="txtSearch" runat="server" BorderStyle="None" 
                                           ></asp:TextBox>
                                    &nbsp;&nbsp;&nbsp;&nbsp;
