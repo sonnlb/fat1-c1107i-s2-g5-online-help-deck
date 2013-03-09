@@ -12,7 +12,7 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        GridView1.DataSource = GetData("exec viewFeedBack" ).Tables[0];
+        GridView1.DataSource = GetData("exec viewFeedBack").Tables[0];
         GridView1.DataBind();
     }
     private DataSet GetData(string query)
