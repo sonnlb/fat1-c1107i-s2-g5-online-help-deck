@@ -24,16 +24,18 @@ public partial class ChangePass : System.Web.UI.Page
         }
         lblChange.Visible = false;
     }
-    
+
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        
-        if(txtNewPass.Text!=txtcfPass.Text){
+
+        if (txtNewPass.Text != txtcfPass.Text)
+        {
             lblChange.Visible = true;
             lblChange.Text = "The passwords you have entered do not match !!!";
             change = false;
         }
-        if(txtNewPass.Text==""){
+        if (txtNewPass.Text == "")
+        {
             lblChange.Visible = true;
             lblChange.Text = "Please input new passwords!!!";
             change = false;
@@ -44,7 +46,8 @@ public partial class ChangePass : System.Web.UI.Page
             lblChange.Text = "The old password you have entered do not match!!!";
             change = false;
         }
-        if(change==true){
+        if (change == true)
+        {
             try
             {
                 conn = new SqlConnection(ConfigurationManager.ConnectionStrings["OHDConnectionString"].ConnectionString);
@@ -55,10 +58,11 @@ public partial class ChangePass : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 lblChange.Visible = false;
             }
-            catch {
-                
+            catch
+            {
+
             }
-            
+
         }
     }
     protected void btnCancel_Click(object sender, EventArgs e)
@@ -66,7 +70,7 @@ public partial class ChangePass : System.Web.UI.Page
         txtcfPass.Text = "";
         txtNewPass.Text = "";
         txtOldPass.Text = "";
-        Response.Redirect(Session["url"].ToString()); 
+        Response.Redirect(Session["url"].ToString());
     }
     private DataSet GetData(string query)
     {
