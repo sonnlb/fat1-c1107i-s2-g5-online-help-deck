@@ -103,6 +103,7 @@ as
 SELECT     requests.requestID, requests.requestType, requests.requestStatus, requests.employeeID, requests.remark, requests.date, endUsers.endUserName
 FROM         requests INNER JOIN
                       endUsers ON requests.endUserID = endUsers.endUserID
+ORDER BY requests.date DESC
 go
 create proc viewEmpName
 (
@@ -142,6 +143,7 @@ FROM         requests INNER JOIN
                       employees ON requests.employeeID = employees.employeeID INNER JOIN
                       endUsers ON requests.endUserID = endUsers.endUserID
 WHERE     (employees.employeeName = @employeeName)
+order by requests.requestID desc
 go
 create proc viewRStatus(
 @requestID int
@@ -316,7 +318,7 @@ create proc viewFeedBack
 as
 SELECT     senderName, senderEmail, date, status, feedBackID
 FROM         feedBacks
-ORDER BY status
+ORDER BY date DESC
 go
 create proc viewDetailFeedBack
 (
@@ -352,6 +354,7 @@ create proc listOfEachStatus
 )
 as
 select * from requests where date between @dateFrom and @dateto And requeststatus =@status
+select * from requests where date between @dateFrom and @dateto 
 go
 create proc deleteMessage(
 @messageID int
